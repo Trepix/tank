@@ -14,5 +14,17 @@
   },
   "devDependencies": {
     "claudia": "^2.0.2"
-  }
+  },
+  "main": "tank.js",
+  "directories": {
+    "example": "examples"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Trepix/tank.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Trepix/tank/issues"
+  },
+  "homepage": "https://github.com/Trepix/tank#readme"
 }
