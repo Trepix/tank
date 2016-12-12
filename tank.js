@@ -1,6 +1,8 @@
 /*global module */
 
 utils = require('./utils');
+position = require('./position');
+
 module.exports = function (map) {
 	'use strict';
 	var wallAt = function (point) {
@@ -63,30 +65,36 @@ module.exports = function (map) {
         },
         aimToTarget = function (tank1, tank2) {
 			return 'turn-left';
-        };
+		},
+		fight = function() {
+			for (var i = 0; i < map.enemies.length; ++i) {
+				if (isEnemyReachable(tank, map.enemies[i], map.weaponRange)) {
+					console.log("enemy found within weapon range (you:" + tank.x + ',' + tank.y + "; tank: " + map.enemies[i].x + ',' + map.enemies[i].y + ")");
 
-	for(var i = 0; i < map.enemies.length; ++i ) {
-		if(isEnemyReachable(you, map.enemies[i], map.weaponRange)) {
-			console.log("enemy found within weapon range (you:" + you.x + ',' + you.y + "; tank: " + map.enemies[i].x + ',' +map.enemies[i].y + ")");
-
-			if(!amIAimingCorrectly(you, map.enemies[i])) {
-                console.log("rotating...");
-                var direction = aimToTarget(you, map.enemies[i]);
-				return direction;
+					if (!amIAimingCorrectly(tank, map.enemies[i])) {
+						console.log("rotating...");
+						var direction = aimToTarget(tank, map.enemies[i]);
+						return direction;
+					}
+					else {
+						console.log("aiming correctly");
+						return 'fire';
+					}
+				}
 			}
-			else {
-				console.log("aiming correctly");
-				return 'fire';
-			}
+			return position().moveToHim(tank, map.enemies[0], map);
+		};
 
 
-		}
-	}
 
 	if (utils.isSuddenDeath(map)) {
 		console.log('SUDDEN DEATH!');
-		return runFromFire(map);
 		return 'fire';
+	}
+
+	if (utils.enemyNear(map)) {
+		console.log("ENEMY NEAR, LET'S FIGHT");
+		return fight();
 	}
 
 	if (outsideMap(nextField)) {

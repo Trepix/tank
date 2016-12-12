@@ -9,6 +9,7 @@ var Y_LIMIT_PERCENTAGE = 0.25;
 
 
 module.exports = {
+
     isSuddenDeath: function(map) {
         return map.suddenDeath <= WE_ARE_IN_SUDDEN_DEATH;
     },
@@ -19,5 +20,13 @@ module.exports = {
         if (point.x < width * X_LIMIT_PERCENTAGE || point.x > width * (1 - X_LIMIT_PERCENTAGE)) return false;
         if (point.y < height * Y_LIMIT_PERCENTAGE || point.y > height * (1 - Y_LIMIT_PERCENTAGE)) return false;
         return true;
+    },
+
+    enemyNear(map) {
+        var enemy = map.enemies[0];
+        if (typeof enemy.direction != 'undefined') {
+            return true;
+        }
+        return false;
     }
 };
