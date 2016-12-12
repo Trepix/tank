@@ -21,6 +21,6 @@ api.post('/command', function (request) {
 	'use strict';
 	var map = request.body;
 	return {
-		command: tankAI(map, ['left', 'right', 'top', 'bottom'])
+		command: tankAI(map)
 	};
 });

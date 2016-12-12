@@ -257,7 +257,7 @@ var decide = function (map) {
 		action = function(cmd) {
 			console.log(cmd)
 			return cmd;
-		}
+		};
 
 
 

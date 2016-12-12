@@ -1,5 +1,7 @@
 /*global module */
-module.exports = function (map, turnOn) {
+
+utils = require('./utils');
+module.exports = function (map) {
 	'use strict';
 	var wallAt = function (point) {
 			return map.walls.find(function (wall) {
@@ -33,9 +35,14 @@ module.exports = function (map, turnOn) {
 		tank = map.you,
 		movement = movements[tank.direction],
 		nextField = { x: tank.x + movement.x, y: tank.y + movement.y };
-	if (turnOn.indexOf(tank.direction) >= 0) {
-		return 'turn-left';
+
+
+	if (utils.isSuddenDeath(map)) {
+		console.log('SUDDEN DEATH!');
+		return runFromFire(map);
+		return 'fire';
 	}
+
 	if (outsideMap(nextField)) {
 		return 'turn-left';
 	}
