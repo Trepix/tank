@@ -68,7 +68,30 @@ module.exports = function() {
             }
         }
         else {
-            return 'fire';
+            if (tank.y < enemy.y) {
+                if (tank.direction != 'bottom') {
+                    if (tank.direction == 'right') return 'turn-right';
+                    else return 'turn-left';
+                }
+            }
+            else if (tank.y > enemy.y) {
+                if (tank.direction != 'top') {
+                    if (tank.direction == 'left') return 'turn-right';
+                    else return 'turn-left';
+                }
+            }
+            else if (tank.x < enemy.x) {
+                if (tank.direction != 'right') {
+                    if (tank.direction == 'top') return 'turn-right';
+                    else return 'turn-left';
+                }
+            }
+            else  { //tank.x > enemy.x
+                if (tank.direction != 'left') {
+                    if (tank.direction == 'bottom') return 'turn-right';
+                    else return 'turn-left';
+                }
+            }
         }
 
     }
